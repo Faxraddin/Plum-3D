@@ -1,10 +1,11 @@
-import { Float, Line, OrbitControls } from "@react-three/drei";
+import { Float, Line, OrbitControls, PerspectiveCamera, useScroll } from "@react-three/drei";
 import Background from "./Background";
 import * as THREE from 'three';
 
 import Airplane from "./Airplane";
 import Cloud from "./Cloud";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 
 export const Experience = () => {
 
@@ -28,7 +29,7 @@ export const Experience = () => {
   });
 
   const linePoints = useMemo(()=>{
-    return curve.getPoints(2000)
+    return curve.getPoints(12000)
   },[curve]);
 
   const shape = useMemo(() => {
@@ -39,18 +40,30 @@ export const Experience = () => {
     return shape;
   }, [curve]);
 
+  const cameraGroup = useRef();
+  const scroll = useScroll();
+
+  useFrame((state,delta)=>{
+    const curPointIndex = Math.min(Math.round(scroll.offset * linePoints.length), linePoints.length - 1 )
+    const curPoint = linePoints[curPointIndex]
+
+    cameraGroup.current.position.lerp(curPoint,delta*24)
+  });
+
   return (
     <>
-      <OrbitControls />
-      <Background/>
-
-      <Float speed={2} floatIntensity={2}>
-        <Airplane    
-          rotation-y={Math.PI / 2}
-          scale={[0.2, 0.2, 0.2]}
-          position-y={0.1}
-        />
-      </Float>
+      <OrbitControls enableZoom={false}/>
+      <group ref={cameraGroup}> 
+        <Background/>
+        <PerspectiveCamera makeDefault fov={30} position={[0,0,5]}/>
+        <Float speed={2} floatIntensity={2}>
+          <Airplane    
+            rotation-y={Math.PI / 2}
+            scale={[0.2, 0.2, 0.2]}
+            position-y={0.1}
+          />
+        </Float>
+      </group>
 
       <group position-y={-2}>
       
