@@ -85,7 +85,6 @@ export const Experience = () => {
 
   return (
     <>
-      <OrbitControls enableZoom={false}/>
       <group ref={cameraGroup}>
         <Background />
         <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
