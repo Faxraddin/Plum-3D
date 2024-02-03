@@ -1,17 +1,25 @@
 import { useGLTF } from "@react-three/drei";
-import React from "react";
+import { useFrame } from "@react-three/fiber";
+import React, { useRef } from "react";
 import { fadeOnBeforeCompile } from "../utils/fadeMaterial";
 
-export default function Cloud({ opacity, ...props }) {
+export default function Cloud({ sceneOpacity, ...props }) {
   const { nodes, materials } = useGLTF("./models/cloud/model.gltf");
+
+  const materialRef = useRef();
+
+  useFrame(() => {
+    materialRef.current.opacity = sceneOpacity.current;
+  });
+
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Mball001.geometry}>
         <meshStandardMaterial
+          ref={materialRef}
           onBeforeCompile={fadeOnBeforeCompile}
           envMapIntensity={2}
           transparent
-          opacity={opacity}
         />
       </mesh>
     </group>
