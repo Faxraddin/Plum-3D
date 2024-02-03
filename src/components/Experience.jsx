@@ -7,6 +7,8 @@ import Cloud from "./Cloud";
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 
+const LINE_NB_POINTS = 12000;
+
 export const Experience = () => {
 
   const curve = useMemo(()=>{
@@ -28,9 +30,9 @@ export const Experience = () => {
     0.5)
   });
 
-  const linePoints = useMemo(()=>{
-    return curve.getPoints(12000)
-  },[curve]);
+  const linePoints = useMemo(() => {
+    return curve.getPoints(LINE_NB_POINTS);
+  }, [curve]);
 
   const shape = useMemo(() => {
     const shape = new THREE.Shape();
@@ -43,42 +45,74 @@ export const Experience = () => {
   const cameraGroup = useRef();
   const scroll = useScroll();
 
-  useFrame((state,delta)=>{
-    const curPointIndex = Math.min(Math.round(scroll.offset * linePoints.length), linePoints.length - 1 )
-    const curPoint = linePoints[curPointIndex]
 
-    cameraGroup.current.position.lerp(curPoint,delta*24)
+  useFrame((state,delta)=>{
+    const curPointIndex = Math.min(
+      Math.round(scroll.offset * linePoints.length),
+      linePoints.length - 1
+    );
+    const curPoint = linePoints[curPointIndex];
+    const pointAhead =
+      linePoints[Math.min(curPointIndex + 1, linePoints.length - 1)];
+
+    const xDisplacement = (pointAhead.x - curPoint.x) * 80;
+
+    const angleRotation =
+      (xDisplacement < 0 ? 1 : -1) *
+      Math.min(Math.abs(xDisplacement), Math.PI / 3);
+
+    const targetAirplaneQuaternion = new THREE.Quaternion().setFromEuler(
+      new THREE.Euler(
+        airplane.current.rotation.x,
+        airplane.current.rotation.y,
+        angleRotation
+      )
+    );
+    const targetCameraQuaternion = new THREE.Quaternion().setFromEuler(
+      new THREE.Euler(
+        cameraGroup.current.rotation.x,
+        angleRotation,
+        cameraGroup.current.rotation.z
+      )
+    );
+    airplane.current.quaternion.slerp(targetAirplaneQuaternion, delta * 2);
+    cameraGroup.current.quaternion.slerp(targetCameraQuaternion, delta * 2);
+
+    cameraGroup.current.position.lerp(curPoint, delta * 24);
   });
+
+  const airplane = useRef();
 
   return (
     <>
       <OrbitControls enableZoom={false}/>
-      <group ref={cameraGroup}> 
-        <Background/>
-        <PerspectiveCamera makeDefault fov={30} position={[0,0,5]}/>
-        <Float speed={2} floatIntensity={2}>
-          <Airplane    
-            rotation-y={Math.PI / 2}
-            scale={[0.2, 0.2, 0.2]}
-            position-y={0.1}
-          />
-        </Float>
+      <group ref={cameraGroup}>
+        <Background />
+        <PerspectiveCamera position={[0, 0, 5]} fov={30} makeDefault />
+        <group ref={airplane}>
+          <Float floatIntensity={2} speed={2}>
+            <Airplane
+              rotation-y={Math.PI / 2}
+              scale={[0.2, 0.2, 0.2]}
+              position-y={0.1}
+            />
+          </Float>
+        </group>
       </group>
 
       <group position-y={-2}>
-      
         <mesh>
           <extrudeGeometry
             args={[
               shape,
               {
-                steps:2000,
-                extrudePath:curve,
-                bevelEnabled:false
-              }
+                steps: LINE_NB_POINTS,
+                bevelEnabled: false,
+                extrudePath: curve,
+              },
             ]}
           />
-          <meshStandardMaterial color={'white'} lineWidth={16} transparent opacity={0.7}/>
+          <meshStandardMaterial color={"white"} opacity={0.7} transparent />
         </mesh>
       </group>
 
