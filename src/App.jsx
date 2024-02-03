@@ -1,18 +1,19 @@
-import { Canvas } from "@react-three/fiber";
-import Experience from "./components/Experience";
 import { ScrollControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { EffectComposer, Noise } from "@react-three/postprocessing";
+import Experience from "./components/Experience";
 
 function App() {
   return (
     <>
-      <Canvas camera={{
-        position: [0, 0, 5],
-        fov: 30,
-      }}>
+      <Canvas>
         <color attach="background" args={["#ececec"]} />
-        <ScrollControls pages={100} damping={1}>
+        <ScrollControls pages={20} damping={0.5}>
           <Experience />
         </ScrollControls>
+        <EffectComposer>
+          <Noise opacity={0.3} />
+        </EffectComposer>
       </Canvas>
     </>
   );
