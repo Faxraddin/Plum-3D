@@ -6,11 +6,11 @@ export default function TextSection ({ title, subtitle, ...props }) {
     <group {...props}>
       {!!title && (
         <Text
-          color="white"
+          color="black"
           anchorX={"left"}
           anchorY="bottom"
-          fontSize={0.52}
-          maxWidth={2.5}
+          fontSize={1}
+          maxWidth={2.9}
           lineHeight={1}
           font={"./fonts/DMSerifDisplay-Regular.ttf"}
         >
@@ -23,11 +23,11 @@ export default function TextSection ({ title, subtitle, ...props }) {
       )}
 
       <Text
-        color="white"
+        color="black"
         anchorX={"left"}
         anchorY="top"
-        fontSize={0.2}
-        maxWidth={2.5}
+        fontSize={0.4}
+        maxWidth={4}
         font={"./fonts/Inter-Regular.ttf"}
       >
         {subtitle}

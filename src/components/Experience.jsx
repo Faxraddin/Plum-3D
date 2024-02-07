@@ -9,6 +9,7 @@ import { fadeOnBeforeCompile } from "../utils/fadeMaterial";
 import Airplane from "./Airplane";
 import Background from "./Background";
 import Cloud from "./Cloud";
+import Mountain from "./Mountain";
 import TextSection from "./TextSection";
 
 const LINE_NB_POINTS = 1000;
@@ -43,9 +44,9 @@ export default function Experience () {
   const textSections = useMemo(() => {
     return [
       {
-        cameraRailDist: -1,
+        cameraRailDist: -15,
         position: new Vector3(
-          curvePoints[1].x - 3,
+          curvePoints[1].x - 12,
           curvePoints[1].y,
           curvePoints[1].z
         ),
@@ -53,9 +54,9 @@ export default function Experience () {
 Have a seat and enjoy the ride!`,
       },
       {
-        cameraRailDist: 1.5,
+        cameraRailDist: 10,
         position: new Vector3(
-          curvePoints[2].x + 2,
+          curvePoints[2].x + 7,
           curvePoints[2].y,
           curvePoints[2].z
         ),
@@ -64,7 +65,7 @@ Have a seat and enjoy the ride!`,
 We have a wide range of services!`,
       },
       {
-        cameraRailDist: -1,
+        cameraRailDist: -10,
         position: new Vector3(
           curvePoints[3].x - 3,
           curvePoints[3].y,
@@ -74,7 +75,7 @@ We have a wide range of services!`,
         subtitle: `Our developer will help you have a great one`,
       },
       {
-        cameraRailDist: 1.5,
+        cameraRailDist: 10,
         position: new Vector3(
           curvePoints[4].x + 3.5,
           curvePoints[4].y,
@@ -524,6 +525,30 @@ We have a wide range of services!`,
         {textSections.map((textSection, index) => (
           <TextSection {...textSection} key={index} />
         ))}
+        <group>
+          <Mountain 
+            position={ 
+              [
+                curvePoints[1].x - 5,
+                curvePoints[1].y-40,
+                curvePoints[1].z 
+              ]} 
+            sceneOpacity={sceneOpacity} 
+            scale={[5,5,5]}
+            
+          />
+          <Mountain 
+          position={ 
+            [
+              curvePoints[2].x + 5,
+              curvePoints[2].y - 40,
+              curvePoints[2].z
+            ]} 
+          sceneOpacity={sceneOpacity} 
+          scale={[5,5,5]}
+          
+          />
+        </group>
 
         {/* LINE */}
         <group position-y={-2}>
