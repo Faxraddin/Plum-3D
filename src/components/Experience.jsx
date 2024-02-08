@@ -46,9 +46,9 @@ export default function Experience () {
       {
         cameraRailDist: -15,
         position: new Vector3(
-          curvePoints[1].x - 12,
-          curvePoints[1].y,
-          curvePoints[1].z
+          curvePoints[1].x - 11,
+          curvePoints[1].y ,
+          curvePoints[1].z +7
         ),
         subtitle: `Welcome to Plum,
 Have a seat and enjoy the ride!`,
@@ -56,9 +56,9 @@ Have a seat and enjoy the ride!`,
       {
         cameraRailDist: 10,
         position: new Vector3(
-          curvePoints[2].x + 7,
+          curvePoints[2].x + 6,
           curvePoints[2].y,
-          curvePoints[2].z
+          curvePoints[2].z +3
         ),
         title: "Services",
         subtitle: `Do you want a website?
@@ -69,7 +69,7 @@ We have a wide range of services!`,
         position: new Vector3(
           curvePoints[3].x - 3,
           curvePoints[3].y,
-          curvePoints[3].z
+          curvePoints[3].z +7
         ),
         title: "Want a mobile application?",
         subtitle: `Our developer will help you have a great one`,
@@ -538,15 +538,34 @@ We have a wide range of services!`,
             
           />
           <Mountain 
-          position={ 
-            [
-              curvePoints[2].x + 5,
-              curvePoints[2].y - 40,
-              curvePoints[2].z
-            ]} 
-          sceneOpacity={sceneOpacity} 
-          scale={[5,5,5]}
-          
+            position={ 
+              [
+                curvePoints[2].x + 5,
+                curvePoints[2].y - 40,
+                curvePoints[2].z
+              ]} 
+            sceneOpacity={sceneOpacity} 
+            scale={[5,5,5]}   
+          />
+             <Mountain 
+            position={ 
+              [
+                curvePoints[3].x - 3,
+                curvePoints[3].y,
+                curvePoints[3].z +7
+              ]} 
+            sceneOpacity={sceneOpacity} 
+            scale={[5,5,5]}   
+          />
+             <Mountain 
+            position={ 
+              [
+                curvePoints[4].x + 3.5,
+                curvePoints[4].y,
+                curvePoints[4].z - 12
+              ]} 
+            sceneOpacity={sceneOpacity} 
+            scale={[5,5,5]}   
           />
         </group>
 
