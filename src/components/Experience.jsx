@@ -65,11 +65,11 @@ Have a seat and enjoy the ride!`,
 We have a wide range of services!`,
       },
       {
-        cameraRailDist: -10,
+        cameraRailDist: -13,
         position: new Vector3(
-          curvePoints[3].x - 3,
-          curvePoints[3].y,
-          curvePoints[3].z +7
+          curvePoints[3].x - 10,
+          curvePoints[3].y ,
+          curvePoints[3].z +9
         ),
         title: "Want a mobile application?",
         subtitle: `Our developer will help you have a great one`,
@@ -79,7 +79,7 @@ We have a wide range of services!`,
         position: new Vector3(
           curvePoints[4].x + 3.5,
           curvePoints[4].y,
-          curvePoints[4].z - 12
+          curvePoints[4].z - 10
         ),
         title: "3D websites",
         subtitle: `We provide a large selection of websites, we highly recommend you a 3D one`,
@@ -551,7 +551,7 @@ We have a wide range of services!`,
             position={ 
               [
                 curvePoints[3].x - 3,
-                curvePoints[3].y,
+                curvePoints[3].y - 40,
                 curvePoints[3].z +7
               ]} 
             sceneOpacity={sceneOpacity} 
@@ -561,7 +561,7 @@ We have a wide range of services!`,
             position={ 
               [
                 curvePoints[4].x + 3.5,
-                curvePoints[4].y,
+                curvePoints[4].y - 40,
                 curvePoints[4].z - 12
               ]} 
             sceneOpacity={sceneOpacity} 

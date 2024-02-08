@@ -10,7 +10,7 @@ export default function TextSection ({ title, subtitle, ...props }) {
           anchorX={"left"}
           anchorY="bottom"
           fontSize={1}
-          maxWidth={2.9}
+          maxWidth={6.9}
           lineHeight={1}
           font={"./fonts/DMSerifDisplay-Regular.ttf"}
         >
@@ -27,7 +27,7 @@ export default function TextSection ({ title, subtitle, ...props }) {
         anchorX={"left"}
         anchorY="top"
         fontSize={0.4}
-        maxWidth={4}
+        maxWidth={5}
         font={"./fonts/Inter-Regular.ttf"}
       >
         {subtitle}
