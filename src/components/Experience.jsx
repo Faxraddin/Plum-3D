@@ -67,7 +67,7 @@ We have a wide range of services!`,
       {
         cameraRailDist: -13,
         position: new Vector3(
-          curvePoints[3].x - 10,
+          curvePoints[3].x - 7,
           curvePoints[3].y ,
           curvePoints[3].z +9
         ),
